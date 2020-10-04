@@ -1,0 +1,11 @@
+Hi Boss,
+
+You have a new dailymail column by {{columnist}} titled {{title}}
+
+To read, please click here: {{link}}
+
+Sincerely,
+
+Your Web Aggregator
+
+Note: replies to this email address are not monitored.

@@ -1,6 +1,7 @@
 import os
 import click
-from app import create_app
+from app import create_app, database
+from app.models import DailymailColumn
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
@@ -12,7 +13,7 @@ def make_shell_context():
 
     :return: a dictionary of values to be imported
     """
-    pass#return dict()
+    return dict(db=database, DailymailColumn=DailymailColumn)
 
 @app.cli.command()
 @click.argument('test_names', nargs=-1)
