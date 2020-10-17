@@ -7,7 +7,7 @@ import atexit
 
 database = SQLAlchemy()
 mail = Mail()
-
+app = Flask(__name__)
 
 def scrape_dailymail():
 	from .models import DailymailColumn
@@ -15,7 +15,6 @@ def scrape_dailymail():
 	from .email import send_email
 	from sqlalchemy.exc import IntegrityError
 
-	app = Flask(__name__)
 	dailymail_columns = DailyMailColumns()
 	for new_link, title, columnist in zip(dailymail_columns.links, dailymail_columns.titles, dailymail_columns.columnists):
 		with app.app_context():
@@ -29,7 +28,6 @@ def scrape_dailymail():
 				database.session.rollback()
 
 def create_app(config_name):
-	app = Flask(__name__)
 	app.config.from_object(config[config_name])
 	config[config_name].init_app(app)
 	database.init_app(app)
@@ -43,7 +41,7 @@ def create_app(config_name):
 	# scrape_dailymail()
 	# Create a schedule to run the scrape_news function in the background
 	scheduler = BackgroundScheduler()
-	scheduler.add_job(func=scrape_dailymail, trigger="interval", seconds=60)
+	scheduler.add_job(func=scrape_dailymail, trigger="interval", seconds=10)
 	# Starts the schedule
 	scheduler.start()
 
