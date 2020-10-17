@@ -31,4 +31,4 @@ def deploy():
     """
     Run deployment tasks.
     """
-    pass
+    database.create_all()
