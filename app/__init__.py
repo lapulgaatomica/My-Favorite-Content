@@ -41,7 +41,7 @@ def create_app(config_name):
 	# scrape_dailymail()
 	# Create a schedule to run the scrape_news function in the background
 	scheduler = BackgroundScheduler()
-	scheduler.add_job(func=scrape_dailymail, trigger="interval", seconds=10)
+	scheduler.add_job(func=scrape_dailymail, trigger="interval", seconds=30)
 	# Starts the schedule
 	scheduler.start()
 
