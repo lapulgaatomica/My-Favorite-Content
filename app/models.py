@@ -6,3 +6,6 @@ class DailymailColumn(db.Model):
 	link = db.Column(db.String, nullable=False, unique=True)
 	title = db.Column(db.String, nullable=False)
 	columnist = db.Column(db.String, nullable=False)
+
+	def __repr__(self):
+        return f'<{self.id} : {self.title}>'

@@ -19,5 +19,7 @@ def make_shell_context():
 def deploy():
     """
     Run deployment tasks.
+
+    :return: None
     """
     database.create_all()

@@ -23,11 +23,15 @@ def create_app(config_name):
 	mail.init_app(app)
 
 	if app.config['SSL_REDIRECT']:
+		#used when the app is on heroku to secure the requests passed by
+		#users and prevent their credentials from being intercepted by a
+		#malicious third party
 	    from flask_sslify import SSLify
 	    sslify = SSLify(app)
 
-	# Create a schedule to run the scrape_news function in the background
+	
 	scheduler = BackgroundScheduler()
+	# Create a schedule to run the get_dailymail_columns function in the background
 	scheduler.add_job(func=get_dailymail_columns, trigger="interval", seconds=30)
 	# Starts the schedule
 	scheduler.start()
