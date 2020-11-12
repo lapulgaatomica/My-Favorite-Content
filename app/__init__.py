@@ -3,29 +3,18 @@ from flask_sqlalchemy import SQLAlchemy
 from config import config
 from flask_mail import Mail
 import atexit
+from apscheduler.schedulers.background import BackgroundScheduler
 
 
 database = SQLAlchemy()
 mail = Mail()
 app = Flask(__name__)
 
-def scrape_dailymail():
-	from .models import DailymailColumn
-	from .scraper import DailyMailColumns
-	from .email import send_email
-	from sqlalchemy.exc import IntegrityError
-
-	dailymail_columns = DailyMailColumns()
-	for new_link, title, columnist in zip(dailymail_columns.links, dailymail_columns.titles, dailymail_columns.columnists):
-		with app.app_context():
-			try:
-				column = DailymailColumn(link=new_link, title=title, columnist=columnist)
-				database.session.add(column)
-				database.session.commit()
-				send_email(app.config['MAIL_RECIPIENT'], 'New Dailymail Column', 'email/dailymail', link=new_link, title=title, columnist=columnist)
-			except IntegrityError:
-				# print(f'{new_link} has been saved before')
-				database.session.rollback()
+#get_dailymail_columns was imported here and not at the top
+#because it needs the database and app to have been created 
+#before it can be created, basically, it was imported here
+#to avoid error due to circular imports 
+from .content import get_dailymail_columns
 
 def create_app(config_name):
 	app.config.from_object(config[config_name])
@@ -37,11 +26,9 @@ def create_app(config_name):
 	    from flask_sslify import SSLify
 	    sslify = SSLify(app)
 
-	from apscheduler.schedulers.background import BackgroundScheduler
-	# scrape_dailymail()
 	# Create a schedule to run the scrape_news function in the background
 	scheduler = BackgroundScheduler()
-	scheduler.add_job(func=scrape_dailymail, trigger="interval", seconds=30)
+	scheduler.add_job(func=get_dailymail_columns, trigger="interval", seconds=30)
 	# Starts the schedule
 	scheduler.start()
 
