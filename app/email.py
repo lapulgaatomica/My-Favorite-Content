@@ -11,7 +11,7 @@ def send_async_email(app, msg):
 
 def send_email(to, subject, template, **kwargs):
     """
-    function craetes different threads for each email and send them.
+    function craetes different threads for each email and sends them.
 
     :return: the thread object
     """

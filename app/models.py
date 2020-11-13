@@ -8,4 +8,4 @@ class DailymailColumn(db.Model):
 	columnist = db.Column(db.String, nullable=False)
 
 	def __repr__(self):
-        return f'<{self.id} : {self.title}>'
+		return f'<{self.id} : {self.title}>'

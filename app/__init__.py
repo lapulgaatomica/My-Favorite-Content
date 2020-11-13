@@ -10,12 +10,6 @@ database = SQLAlchemy()
 mail = Mail()
 app = Flask(__name__)
 
-#get_dailymail_columns was imported here and not at the top
-#because it needs the database and app to have been created 
-#before it can be created, basically, it was imported here
-#to avoid error due to circular imports 
-from .content import get_dailymail_columns
-
 def create_app(config_name):
 	app.config.from_object(config[config_name])
 	config[config_name].init_app(app)
@@ -29,10 +23,10 @@ def create_app(config_name):
 	    from flask_sslify import SSLify
 	    sslify = SSLify(app)
 
-	
+	from .content import get_dailymail_columns
 	scheduler = BackgroundScheduler()
 	# Create a schedule to run the get_dailymail_columns function in the background
-	scheduler.add_job(func=get_dailymail_columns, trigger="interval", seconds=30)
+	scheduler.add_job(func=get_dailymail_columns, trigger="interval", seconds=10)
 	# Starts the schedule
 	scheduler.start()
 
