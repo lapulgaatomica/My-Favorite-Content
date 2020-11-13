@@ -14,7 +14,6 @@ def get_dailymail_columns():
     """
 	dailymail_columns = DailyMailColumns()
 	for new_link, title, columnist in zip(dailymail_columns.links, dailymail_columns.titles, dailymail_columns.columnists):
-		print(f'{title} scraped')
 		with app.app_context():
 			try:
 				column = DailymailColumn(link=new_link, title=title, columnist=columnist)
