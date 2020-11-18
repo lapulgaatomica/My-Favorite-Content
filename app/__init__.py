@@ -26,7 +26,7 @@ def create_app(config_name):
 	from .content import get_dailymail_columns
 	scheduler = BackgroundScheduler()
 	# Create a schedule to run the get_dailymail_columns function in the background
-	scheduler.add_job(func=get_dailymail_columns, trigger="interval", seconds=30)
+	scheduler.add_job(func=get_dailymail_columns, trigger="interval", seconds=300)
 	# Starts the schedule
 	scheduler.start()
 
