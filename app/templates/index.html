@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Content</title>
+</head>
+<body>
+	{% for column in columns %}
+		<div>
+			<a href="{{ column.link }}">{{ column.title }}</a> by {{ column.columnist }}
+		</div>
+	{% endfor %}
+</body>
+</html>

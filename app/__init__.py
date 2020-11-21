@@ -30,6 +30,13 @@ def create_app(config_name):
 	# Starts the schedule
 	scheduler.start()
 
+	# @app.route('/')
+	# def main():
+	# 	return 'hello'
+
+	from . import views
+	app.register_blueprint(views.blue_print)
+
 	# Shuts down scheduler before file exists
 	atexit.register(lambda: scheduler.shutdown())
 
