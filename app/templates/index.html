@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>My Content</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
 </head>
 <body>
-	{% for column in columns %}
-		<div>
-			<a href="{{ column.link }}">{{ column.title }}</a> by {{ column.columnist }}
-		</div>
-	{% endfor %}
+	<header>
+		<h1 class="logo">My Favorite Web Content</h1>
+	</header>
+	<main>
+		<ul>
+			{% for column in columns %}
+				<li> 
+					<a href="{{ column.link }}">{{ column.title }}</a> 
+					<div class="author"><em> by {{ column.columnist }}</em></div>
+				</li>
+			{% endfor %}
+		</ul>
+	</main>
 </body>
 </html>
