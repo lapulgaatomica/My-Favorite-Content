@@ -33,3 +33,15 @@ ul li a {
 .author{
 	color: #6aa;
 }
+.pages ul{
+	display: flex;
+	justify-content: center;
+}
+.pages ul li{
+	font-weight: bold;
+}
+.currentpage{
+	background-color: #6aa;
+	pointer-events:none;
+	opacity:0.8;
+}
