@@ -24,7 +24,8 @@ def deploy():
 
     :return: None
     """
-    upgrade()
+    DailymailColumn.add_a_past_date()
+    # upgrade()
 
 @app.cli.command()
 @click.argument('test_names', nargs=-1)

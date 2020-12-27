@@ -23,17 +23,17 @@ def create_app(config_name):
 	    from flask_sslify import SSLify
 	    sslify = SSLify(app)
 
-	from .content import get_dailymail_columns
-	scheduler = BackgroundScheduler()
-	# Create a schedule to run the get_dailymail_columns function in the background
-	scheduler.add_job(func=get_dailymail_columns, trigger="interval", seconds=300)
-	# Starts the schedule
-	scheduler.start()
+	# from .content import get_dailymail_columns
+	# scheduler = BackgroundScheduler()
+	# # Create a schedule to run the get_dailymail_columns function in the background
+	# scheduler.add_job(func=get_dailymail_columns, trigger="interval", seconds=300)
+	# # Starts the schedule
+	# scheduler.start()
 
 	from . import views
 	app.register_blueprint(views.blue_print)
 
-	# Shuts down scheduler before file exists
-	atexit.register(lambda: scheduler.shutdown())
+	# # Shuts down scheduler before file exists
+	# atexit.register(lambda: scheduler.shutdown())
 
 	return app
