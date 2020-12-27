@@ -4,7 +4,7 @@ from datetime import datetime
 class DailymailColumn(db.Model):
 	__tablename__ = 'dailymail_columns'
 	id = db.Column(db.Integer, primary_key=True)
-	link = db.Column(db.String, nullable=False, unique=True)
+	link = db.Column(db.String, nullable=False, unique=True, index=True)
 	title = db.Column(db.String, nullable=False)
 	columnist = db.Column(db.String, nullable=False)
 	date_added = db.Column(db.DateTime(), default=datetime.utcnow)
