@@ -2,8 +2,10 @@ import os
 import click
 from app import create_app, database
 from app.models import DailymailColumn
+from flask_migrate import Migrate, upgrade
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+migrate = Migrate(app, database)
 
 @app.shell_context_processor
 def make_shell_context():
@@ -22,7 +24,7 @@ def deploy():
 
     :return: None
     """
-    database.create_all()
+    upgrade()
 
 @app.cli.command()
 @click.argument('test_names', nargs=-1)
