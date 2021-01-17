@@ -1,8 +1,21 @@
-dark = document.getElementById('dark')
+dark = document.getElementById('dark');
+
+document.body.onload = function () {
+	if(localStorage.getItem('backgroundColor') === 'black'){
+		dark.checked = true;
+		document.body.style.background = 'black';
+	}else{
+		dark.checked = false;
+		document.body.style.background = 'white';
+	}
+}
+
 dark.addEventListener('change', function(){
 	if (dark.checked){
-		document.body.style.background = 'black'
+		localStorage.setItem('backgroundColor', 'black')
+		document.body.style.background = 'black';
 	}else{
-		document.body.style.background = 'white'
+		localStorage.removeItem('backgroundColor')
+		document.body.style.background = 'white';
 	}
 });
